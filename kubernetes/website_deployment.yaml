@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: mywebsite
-        image: aseada/asblog_repo:35
+        image: aseada/asblog_repo:tagname
         ports:
         - containerPort: 80
