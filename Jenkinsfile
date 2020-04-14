@@ -5,9 +5,7 @@ pipeline {
         registryCredential = 'dockerhub'
 	clusterName = ''
   }
-	
   agent any
-
   stages {
      stage ('Lint') {
        steps {
@@ -36,7 +34,6 @@ pipeline {
 	sh 'docker rmi $registry:$BUILD_NUMBER'
       }
     }
-	
     stage('Build Kubernetes cluster') {
 	when {
            branch 'development'
@@ -55,8 +52,7 @@ pipeline {
         steps {
             sh 'echo "docker image to be deployed here"'
 	    sh 'chmod +x ./kubernetes/changeTag.sh'
-	    sh './kubernetes/changeTag.sh'
-	    
+	    sh './kubernetes/changeTag.sh'	    
         } 
     }
   }
