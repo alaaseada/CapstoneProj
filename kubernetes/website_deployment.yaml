@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website-deployment
+  labels:
+    app: asblog
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: asblog
+  template:
+    metadata:
+      labels:
+        app: asblog
+    spec:
+      containers:
+      - name: mywebsite
+        image: aseada/asblog_repo:35
+        ports:
+        - containerPort: 80

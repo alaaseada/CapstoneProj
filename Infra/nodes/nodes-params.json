@@ -1,0 +1,22 @@
+[
+    {
+        "ParameterKey": "ClusterName",
+        "ParameterValue": "Cluster-TeAxEmB82NR0"
+    },
+    {
+        "ParameterKey":"ClusterStack",
+        "ParameterValue": "eks-cluster"
+    },
+    {
+        "ParameterKey":"VPCStack",
+        "ParameterValue":"eks-vpc"
+    },
+    {
+        "ParameterKey":"NodeGroupName",
+        "ParameterValue":"Nodeone"
+    },
+    {
+        "ParameterKey":"KeyName",
+        "ParameterValue":"ec2instKey"
+    }
+]

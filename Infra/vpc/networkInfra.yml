@@ -1,0 +1,127 @@
+Parameters:
+
+    # Declare the project VPC CIDR
+    VpcCIDR:
+      Description: Project's VPC CIDR
+      Type: String
+      Default: 10.0.0.0/16
+    # Declare subnets CIDRs  
+    PubSN1CIDR:
+      Description: Public subnet CIDR in AZ1 
+      Type: String
+      Default: 10.0.1.0/24
+    PubSN2CIDR:
+      Description: Public subnet CIDR in AZ2 
+      Type: String
+      Default: 10.0.2.0/24
+      
+Resources:    
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+        CidrBlock: !Ref VpcCIDR
+        EnableDnsHostnames: true
+        Tags:
+            - Key: Name
+              Value:  !Sub ${AWS::StackName}
+  PubSN1:
+    Type: AWS::EC2::Subnet
+    Properties:
+        VpcId: !Ref VPC
+        AvailabilityZone: !Select [ 0, !GetAZs '' ]
+        CidrBlock: !Ref PubSN1CIDR
+        MapPublicIpOnLaunch: false
+        Tags: 
+            - Key: Name 
+              Value: PubSN(AZ1)                   
+  PubSN2:
+    Type: AWS::EC2::Subnet
+    Properties:
+        VpcId: !Ref VPC
+        AvailabilityZone: !Select [ 1, !GetAZs '' ]
+        CidrBlock: !Ref PubSN2CIDR
+        MapPublicIpOnLaunch: false
+        Tags: 
+            - Key: Name 
+              Value: PubSN(AZ2)
+# Gateways
+  IGW:
+      Type: AWS::EC2::InternetGateway
+      Properties:
+          Tags:
+              - Key: Name
+                Value: IGW        
+  IGWAttachment:
+      Type: AWS::EC2::VPCGatewayAttachment
+      Properties:
+          InternetGatewayId: !Ref IGW
+          VpcId: !Ref VPC      
+  
+
+# Route tables
+  PubRT:
+      Type: AWS::EC2::RouteTable
+      Properties: 
+          VpcId: !Ref VPC
+          Tags: 
+              - Key: Name 
+                Value: PublicRoutes
+  
+# Default Routes
+  DefaultPubRoute: 
+      Type: AWS::EC2::Route
+      DependsOn: IGWAttachment
+      Properties: 
+          RouteTableId: !Ref PubRT
+          DestinationCidrBlock: 0.0.0.0/0
+          GatewayId: !Ref IGW
+ 
+
+# Route table associations
+  PubSN1RTAssociation:
+      Type: AWS::EC2::SubnetRouteTableAssociation
+      Properties:
+          RouteTableId: !Ref PubRT
+          SubnetId: !Ref PubSN1
+  PubSN2RTAssociation:
+      Type: AWS::EC2::SubnetRouteTableAssociation
+      Properties:
+          RouteTableId: !Ref PubRT
+          SubnetId: !Ref PubSN2
+ 
+
+Outputs:
+
+  VPC: 
+      Description: A reference to the created VPC
+      Value: !Ref VPC
+      Export:
+        Name: !Sub ${AWS::StackName}-VPCID
+
+  VPCPublicRouteTable:
+      Description: Public Routing Table
+      Value: !Ref PubRT
+      Export:
+        Name: !Sub ${AWS::StackName}-PubRT
+
+  
+  PublicSubnets:
+      Description: A list of the public subnets
+      Value: !Join [ ",", [ !Ref PubSN1, !Ref PubSN2 ]]
+      Export:
+        Name: !Sub ${AWS::StackName}-PubNets
+
+ 
+  PublicSubnet1:
+      Description: A reference to the public subnet in the 1st Availability Zone
+      Value: !Ref PubSN1
+      Export:
+        Name: !Sub ${AWS::StackName}-PubSN1
+
+  PublicSubnet2: 
+      Description: A reference to the public subnet in the 2nd Availability Zone
+      Value: !Ref PubSN2
+      Export:
+        Name: !Sub ${AWS::StackName}-PubSN2
+
+ 

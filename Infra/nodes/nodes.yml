@@ -1,0 +1,71 @@
+Parameters:
+  
+  KeyName:
+    Description: The key used to SSH EC2 instances 
+    Type: AWS::EC2::KeyPair::KeyName
+
+  ClusterName:
+    Description: Cluster stack name
+    Type: String
+
+  VPCStack:
+    Description: VPC stack name
+    Type: String
+
+  NodeGroupName:
+    Description: Unique identifier for the Node Group.
+    Type: String
+  
+  ClusterStack:
+    Description: Cluster stack name
+    Type: String
+
+Resources:
+
+# IAM Roles
+
+  NodeInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: "/"
+      Roles:
+      - !Ref NodeInstanceRole
+
+  NodeInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - ec2.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Path: "/"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+        - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+
+  EKSNodegroup:
+    Type: 'AWS::EKS::Nodegroup'
+    Properties:
+      InstanceTypes: 
+        - t2.small
+      NodegroupName: !Sub ${NodeGroupName}
+      RemoteAccess: 
+        Ec2SshKey: !Sub ${KeyName}
+      ClusterName: !Sub ${ClusterName}
+      NodeRole: !GetAtt NodeInstanceRole.Arn
+      ScalingConfig:
+        MinSize: 2
+        DesiredSize: 3
+        MaxSize: 3
+      Subnets:
+        - Fn::ImportValue:
+            !Sub "${VPCStack}-PubSN1"
+        - Fn::ImportValue:
+            !Sub "${VPCStack}-PubSN2"
+      
