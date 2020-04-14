@@ -4,6 +4,7 @@ pipeline {
         dockerImage = ""
         registryUrl = 'https://index.docker.io/v1/'
         registryCredential = 'dockerhub'
+	clusterName = ''
   }
 	
   agent any
@@ -44,7 +45,8 @@ pipeline {
         steps {
             sh './Infra/vpc/create.sh'
             sh './Infra/cluster/create.sh'
-            sh './Infra/nodes/create.sh'
+ 	    clusterName = sh (script: './Infra/cluster/getClusterName.sh',returnStdout: true).trim()
+            sh './Infra/nodes/create.sh $clusterName'
         } 
     }
     stage('Deploy to Kubernetes cluster') {
