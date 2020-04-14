@@ -54,8 +54,8 @@ pipeline {
 	    sh 'chmod +x ./kubernetes/changeTag.sh'
 	    sh './kubernetes/changeTag.sh $BUILD_NUMBER'
 	    sh 'aws eks --region us-west-2 update-kubeconfig --name $clusterName'
-	    sh 'kubectl apply -f ./kubernetes/services.yaml'
-	    sh 'kubectl apply -f ./kubernetes/services.yaml'
+	    sh 'kubectl apply -f ./kubernetes/service.yaml'
+	    sh 'kubectl apply -f ./kubernetes/current_deployment.yaml'
         } 
     }
   }
