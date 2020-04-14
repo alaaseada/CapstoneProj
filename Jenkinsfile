@@ -52,7 +52,10 @@ pipeline {
         steps {
             sh 'echo "docker image to be deployed here"'
 	    sh 'chmod +x ./kubernetes/changeTag.sh'
-	    sh './kubernetes/changeTag.sh'	    
+	    sh './kubernetes/changeTag.sh $BUILD_NUMBER'
+	    sh 'aws eks --region us-west-2 update-kubeconfig --name $clusterName'
+	    sh 'kubectl apply -f ./kubernetes/services.yaml'
+	    sh 'kubectl apply -f ./kubernetes/services.yaml'
         } 
     }
   }
