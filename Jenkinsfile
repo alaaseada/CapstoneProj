@@ -2,7 +2,6 @@ pipeline {
   environment {
 	registry = "aseada/asblog_repo"
         dockerImage = ""
-        registryUrl = 'https://index.docker.io/v1/'
         registryCredential = 'dockerhub'
 	clusterName = ''
   }
@@ -55,6 +54,9 @@ pipeline {
         }
         steps {
             sh 'echo "docker image to be deployed here"'
+	    sh 'chmod +x ./kubernetes/changeTag.sh'
+	    sh './kubernetes/changeTag.sh'
+	    
         } 
     }
   }
