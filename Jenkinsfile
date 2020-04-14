@@ -36,5 +36,24 @@ pipeline {
 	sh 'docker rmi $registry:$BUILD_NUMBER'
       }
     }
+	
+    stage('Build Kubernetes cluster') {
+	when {
+           branch 'development'
+        }
+        steps {
+            sh './Infra/vpc/create.sh'
+            sh './Infra/cluster/create.sh'
+            sh './Infra/nodes/create.sh'
+        } 
+    }
+    stage('Deploy to Kubernetes cluster') {
+	when {
+           branch 'production'
+        }
+        steps {
+            sh 'echo "docker image to be deployed here"'
+        } 
+    }
   }
 }
