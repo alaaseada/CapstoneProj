@@ -1,7 +1,7 @@
 [
     {
         "ParameterKey": "ClusterName",
-        "ParameterValue": "Cluster-TeAxEmB82NR0"
+        "ParameterValue": "replaceclustername"
     },
     {
         "ParameterKey":"ClusterStack",
