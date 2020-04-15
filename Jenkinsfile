@@ -23,6 +23,8 @@ pipeline {
 		sh './infra/vpc/create.sh' 
 		sh './infra/cluster/create.sh'
 	 	sh './infra/nodes/create.sh'
+		sh './kubernetes/changeTag.sh'
+		sh 'infra/cluster/getClusterName.sh'
         } 
     }
     stage('Deploy to Kubernetes cluster') {
