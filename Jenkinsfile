@@ -28,7 +28,7 @@ pipeline {
            branch 'production'
         }
         steps {
-            sh 'echo "docker image to be deployed here"
+            sh 'echo "docker image to be deployed here"'
         } 
     }
   }
