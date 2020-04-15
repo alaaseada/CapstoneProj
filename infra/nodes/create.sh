@@ -4,7 +4,7 @@ echo "Hello world! from nodes"
 
 sed "s/replaceclustername/$1/g" nodes-params.json
 
-aws cloudformation wait stack-create-complete --stack-name "eks-cluster"
+aws cloudformation wait stack-create-complete --region us-west-2 --stack-name "eks-cluster"
 
 aws cloudformation create-stack --stack-name "eks-nodes" \
 	--template-body file://nodes.yml \
