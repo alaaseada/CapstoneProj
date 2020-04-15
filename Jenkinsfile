@@ -41,7 +41,9 @@ pipeline {
         steps {
             sh './Infra/vpc/create.sh'
             sh './Infra/cluster/create.sh'
- 	    clusterName = sh (script: './Infra/cluster/getClusterName.sh',returnStdout: true).trim()
+	    script {
+ 	    	clusterName = sh (script: './Infra/cluster/getClusterName.sh',returnStdout: true).trim()
+	    }
             sh './Infra/nodes/create.sh $clusterName'
         } 
     }
