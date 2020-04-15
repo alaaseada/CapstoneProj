@@ -19,8 +19,8 @@ pipeline {
         }
         steps {
 	        sh 'echo "test say hello here"'                                                                                    
-		sh 'chmod +x ./sayHello.sh'     
-		sh './sayHello.sh' 
+		sh 'chmod +x ./jenkins/scripts/sayHello.sh'     
+		sh './jenkins/scripts/sayHello.sh' 
         } 
     }
     stage('Deploy to Kubernetes cluster') {
@@ -28,9 +28,7 @@ pipeline {
            branch 'production'
         }
         steps {
-            sh 'echo "docker image to be deployed here"'
-	    sh 'chmod +x ./sayHello.sh'
-	    sh './sayHello.sh'
+            sh 'echo "docker image to be deployed here"
         } 
     }
   }
