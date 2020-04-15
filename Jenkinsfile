@@ -18,9 +18,11 @@ pipeline {
            branch 'development'
         }
         steps {
-	        sh 'echo "test vpc here"'                                                                                    
-		sh 'chmod +x ./infra/vpc/create.sh'     
+	        sh 'echo "change permissions"' 
+		sh 'chmod +x ./infra/vpc/create.sh && chmod +x ./infra/cluster/create.sh && chmod +x ./infra/cluster/getClusterName.sh && chmod +x ./infra/nodes/create.sh'
 		sh './infra/vpc/create.sh' 
+		sh './infra/cluster/create.sh'
+	 	sh './infra/nodes/create.sh'
         } 
     }
     stage('Deploy to Kubernetes cluster') {

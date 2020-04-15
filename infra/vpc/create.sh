@@ -1,3 +1,3 @@
 #! /bin/bash
 
-echo "Hello world, from create script!"
+echo "Hello world, from VPC"
