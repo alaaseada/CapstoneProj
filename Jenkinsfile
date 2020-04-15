@@ -39,6 +39,7 @@ pipeline {
            branch 'development'
         }
         steps {
+	    sh 'chmod +x ./Infra/vpc/create.sh && chmod +x ./Infra/cluster/create.sh && chmod +x ./Infra/cluster/getClusterName.sh && chmod +x ./Infra/nodes/create.sh'
             sh './Infra/vpc/create.sh'
             sh './Infra/cluster/create.sh'
 	    script {
