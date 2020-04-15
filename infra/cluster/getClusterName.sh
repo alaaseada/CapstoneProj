@@ -6,6 +6,6 @@ aws cloudformation wait stack-create-complete --region us-west-2 --stack-name "e
 
 aws cloudformation describe-stacks \
 	  --stack-name "eks-cluster" \
-	  --query "Stacks[0].Outputs[?OutputKey=='eks-cluster-ClusterName'].OutputValue" \
+	  --query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" \
 	  --output text \
 	  --region=us-west-2
