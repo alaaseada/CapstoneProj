@@ -42,7 +42,7 @@ pipeline {
 	        sh 'echo "change permissions"' 
 		sh 'chmod +x ./infra/vpc/create.sh && chmod +x ./infra/cluster/create.sh && chmod +x ./infra/cluster/getClusterName.sh && chmod +x ./infra/nodes/create.sh'
 		dir("infra/vpc") { sh './infra/vpc/create.sh' }
-		dir("infra/cluster") { "sh './infra/cluster/create.sh' }
+		dir("infra/cluster") { sh './infra/cluster/create.sh' }
 		script {
  	    	clusterName = sh (script: './infra/cluster/getClusterName.sh',returnStdout: true).trim()
 	    	}
