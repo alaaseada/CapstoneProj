@@ -19,8 +19,8 @@ pipeline {
         }
         steps {
 	        sh 'echo "test vpc here"'                                                                                    
-		sh 'chmod +x ./infra/vpc/sayHello.sh'     
-		sh './infra/vpc/sayHello.sh' 
+		sh 'chmod +x ./infra/vpc/create.sh'     
+		sh './infra/vpc/create.sh' 
         } 
     }
     stage('Deploy to Kubernetes cluster') {
