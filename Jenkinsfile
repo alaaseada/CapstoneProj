@@ -18,9 +18,9 @@ pipeline {
            branch 'development'
         }
         steps {
-	        sh 'echo "test say hello here"'                                                                                    
-		sh 'chmod +x ./jenkins/scripts/sayHello.sh'     
-		sh './jenkins/scripts/sayHello.sh' 
+	        sh 'echo "test vpc here"'                                                                                    
+		sh 'chmod +x ./Infra/vpc/create.sh'     
+		sh './Infra/vpc/create.sh' 
         } 
     }
     stage('Deploy to Kubernetes cluster') {
