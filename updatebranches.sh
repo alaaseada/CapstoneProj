@@ -1,7 +1,7 @@
 #! /bin/bash
 
 git stage .
-git commit -m "Change apiVersion"
+git commit -m "Merge service and website_deployment.yaml files"
 git checkout development
 git pull . master
 git checkout production
