@@ -2,8 +2,6 @@
 
 echo "Hello world! from nodes"
 
-sed "s/replaceclustername/$1/g" nodes-params.json
-
 aws cloudformation wait stack-create-complete --region us-west-2 --stack-name "eks-cluster"
 
 nodes_StackId=$(aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE --query "StackSummaries[?StackName=='eks-nodes'].StackId" --output text --region us-west-2)
