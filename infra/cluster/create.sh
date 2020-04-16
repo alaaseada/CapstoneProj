@@ -24,7 +24,7 @@ then
 
 	echo $clusterName
 
-	sed "s/replaceclustername/$clusterName/g" ../nodes/nodes-params.json
+	sed "s/replaceclustername/$clusterName/g" ../nodes/nodes-params.json > ../nodes/cluster-nodes-params.json
 
 	aws eks update-kubeconfig --name $clusterName --region us-west-2
 else

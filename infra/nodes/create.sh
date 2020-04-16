@@ -11,7 +11,7 @@ if [ -z "$nodes_StackId" ]
 then
 	aws cloudformation create-stack --stack-name "eks-nodes" \
 		--template-body file://nodes.yml \
-		--parameters file://nodes-params.json \
+		--parameters file://cluster-nodes-params.json \
 		--capabilities CAPABILITY_NAMED_IAM \
 		--region=us-west-2
 else
