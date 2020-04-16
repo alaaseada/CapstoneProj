@@ -45,10 +45,12 @@ pipeline {
     stage('Deploy to Kubernetes cluster') {
       steps {
         sh 'echo "docker image to be deployed here"'
-	sh 'chmod +x ./kubernetes/changeTag.sh'
-	sh './kubernetes/changeTag.sh $BUILD_NUMBER'
-	sh 'kubectl apply -f ./kubernetes/service.yaml'
-	sh 'kubectl apply -f ./kubernetes/current_deployment.yaml'
+	dir("kubernetes") {
+		sh 'chmod +x ./changeTag.sh'
+		sh './changeTag.sh $BUILD_NUMBER'
+		sh 'kubectl apply -f ./service.yaml'
+		sh 'kubectl apply -f ./current_deployment.yaml'
+	}
       } 
     }
   }
