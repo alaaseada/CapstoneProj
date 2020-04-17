@@ -15,6 +15,8 @@ then
 		--parameters file://clusterinfra-params.json \
 		--capabilities CAPABILITY_NAMED_IAM \
 		--region=us-west-2
+	
+	aws cloudformation wait stack-create-complete --region us-west-2 --stack-name "eks-cluster" 
 
 	clusterName=$(aws cloudformation describe-stacks \
           --stack-name "eks-cluster" \
