@@ -46,10 +46,9 @@ pipeline {
       steps {
         sh 'echo "docker image to be deployed here"'
 	dir("kubernetes") {
-		sh 'chmod +x ./changeTag.sh'
+		sh 'chmod +x ./changeTag.sh && chmod +x ./deploy.sh'
 		sh './changeTag.sh $BUILD_NUMBER'
-		sh 'kubectl apply -f ./current_deployment.yaml'
-		sh 'kubectl get svc'
+		sh './deploy.sh $BUILD_NUMBER'
 	}
       } 
     }
