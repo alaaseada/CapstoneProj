@@ -49,7 +49,6 @@ pipeline {
 		sh 'chmod +x ./changeTag.sh'
 		sh './changeTag.sh $BUILD_NUMBER'
 		sh 'kubectl apply -f ./current_deployment.yaml'
-		sh 'kubectl apply -f ./service.yaml'	
 	}
       } 
     }
