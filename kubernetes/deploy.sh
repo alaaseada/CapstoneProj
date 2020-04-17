@@ -8,12 +8,13 @@ function is_deployment_exists() {
 	return 1  # then return False
 }
 
-if [ is_deployment_exists ] then
-	kubectl set image deployment/website-deployment --image=aseada/asblog_repo:$1 --record
+if [ is_deployment_exists ]
+then
+	kubectl set image deployment/website-deployment  mywebsite=aseada/asblog_repo:$1 --record
 	kubectl rollout status website-deployment
 	kubectl rollout history website-deployment
 else
-	kubectl apply -f current_deployment.yaml 
+	kubectl apply -f current_deployment.yaml
 fi
 
 kubectl get svc
