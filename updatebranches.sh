@@ -1,7 +1,7 @@
 #! /bin/bash
 
 git stage .
-git commit -m "Merge service and website_deployment.yaml files"
+git commit -m "Specify the cluster version to 1.15.11"
 git checkout development
 git pull . master
 git checkout production
