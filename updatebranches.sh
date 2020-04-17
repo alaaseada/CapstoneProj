@@ -1,7 +1,7 @@
 #! /bin/bash
 
 git stage .
-git commit -m "Update Jenkinsfile, add deploy shell script to allow annotation to deployments"
+git commit -m "Update the eb application to version 3"
 git checkout development
 git pull . master
 git checkout production
