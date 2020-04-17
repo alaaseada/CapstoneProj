@@ -28,3 +28,4 @@ echo $clusterName
 sed "s/replaceclustername/$clusterName/g" ../nodes/nodes-params.json > ../nodes/cluster-nodes-params.json
 rm ~/.kube/config
 aws eks update-kubeconfig --name $clusterName --region us-west-2
+kubectl get svc
