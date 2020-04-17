@@ -1,7 +1,7 @@
 #! /bin/bash
 
 git stage .
-git commit -m "Reveal the link of the application"
+git commit -m "Version 2 of my web application"
 git checkout development
 git pull . master
 git checkout production
