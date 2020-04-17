@@ -1,7 +1,7 @@
 #! /bin/bash
 
 git stage .
-git commit -m "Fix Dockerfile to fix the error in lint"
+git commit -m "Update Jenkinsfile, add deploy shell script to allow annotation to deployments"
 git checkout development
 git pull . master
 git checkout production
