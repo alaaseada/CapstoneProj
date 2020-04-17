@@ -1,16 +1,4 @@
-apiVersion: apps/v1
-kind: Service
-metadata:
-  name: webbalancer
-spec:
-  selector:
-    app: asblog
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-  type: loadBalancer
----
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
