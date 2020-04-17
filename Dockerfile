@@ -4,7 +4,7 @@ FROM nginx
 # working directory
 
 
-ORKDIR /usr/share/nginx/html
+WORKDIR /usr/share/nginx/html
 
 
 # Copy source code to working directory
