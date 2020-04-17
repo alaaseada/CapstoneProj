@@ -1,7 +1,7 @@
 #! /bin/bash
 
 git stage .
-git commit -m "Merge deployment and service yaml files"
+git commit -m "Reveal the link of the application"
 git checkout development
 git pull . master
 git checkout production
