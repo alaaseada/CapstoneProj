@@ -30,13 +30,13 @@ then
 
 	aws eks update-kubeconfig --name $clusterName --region us-west-2
 else
-	clusterName=$(aws cloudformation describe-stacks \ 
+	clusterName=$(aws cloudformation describe-stacks \
          		--stack-name "eks-cluster" \
-         		--query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" \ 
+         		--query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" \
 		 	--output text \
 		 	--region=us-west-2)
 	echo $clusterName
-	sed "s/replaceclustername/$clusterName/g" ../nodes/nodes-params.json > ../nodes/cluster-nodes-params.json
-	aws eks update-kubeconfig --name $clusterName --region us-west-2
+	#sed "s/replaceclustername/$clusterName/g" ../nodes/nodes-params.json > ../nodes/cluster-nodes-params.json
+	#aws eks update-kubeconfig --name $clusterName --region us-west-2
 	echo "The stach \"eks-cluster\" is already exists"
 fi
